@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!--     cdn -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" 
+    integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link rel="stylesheet" href="./assets/css/style.css">
+    <link rel="shortcut icon" href="./assets/img/img_boostrap.png" type="image/x-icon">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Sedgwick+Ave+Display&display=swap" rel="stylesheet">
+    <title>proyecto Studio Ghiblin</title>
+</head>
+<body>
+
+
+<!-- seccion navbar -->
+<nav class="navbar navbar-dark bg-dark">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">
+        <img id="fotito" src="./assets/img/img_boostrap.png" alt="" width="100" height="80" pt="20%" class="d-inline-block bg-dark"> 
+      </a>
+      <a class="navbar-brand me-auto" href="#">Studio Ghiblin</a>
+    
+
+      <form class="d-flex" id="form_pelicula">
+            <a class="navbar-brand  m-5" href="#">Encuentra tu film</a>
+        
+            <select  class="form-select me-2 m-5" type="search" aria-label="Search" name="select_film" id="select_film">
+                <option value="Arrietty">Arrietty</option>
+                <option value="Castle in the sky">Castle in the sky</option>
+                <option value="Earwig and the Witch">Earwig and the Witch</option>
+                <option value="From Up on Poppy Hill">From Up on Poppy Hill</option>
+                <option value="Grave of the Fireflies">Grave of the Fireflies</option>
+                <option value="How Do You Live?">How Do You Live?</option>
+                <option value="Howl's Moving Castle">Howl's Moving Castle</option>
+                <option value="Kiki's Delivery Service">Kiki's Delivery Service</option>
+                <option value="My Neighbor Totoro">My Neighbor Totoro</option>
+                <option value="My Neighbors the Yamadas">My Neighbors the Yamadas</option>
+                <option value="Ocean Waves">Ocean Waves</option>
+                <option value="Only Yesterday">Only Yesterday</option>
+                <option value="Pom Poko">Pom Poko</option>
+                <option value="Ponyo">Ponyo</option>
+                <option value="Porco Rosso">Porco Rosso</option>
+                <option value="Princess Mononoke">Princess Mononoke</option>
+                <option value="Spirited Away">Spirited Away</option>
+                <option value="Tales from Earthsea">Tales from Earthsea</option>
+                <option value="The Cat Returns">The Cat Returns</option>
+                <option value="The Tale of the Princess Kaguya">The Tale of the Princess Kaguya</option>
+                <option value="The Wind Rises">The Wind Rises</option>
+                <option value="When Marnie Was There">When Marnie Was There</option>
+                <option value="Whisper of the Heart">Whisper of the Heart</option>
+            </select>
+    
+            <button type="submit" class="btn btn-outline-success m-5">buscar</button>
+    
+    </form>
+    
+
+    </div>
+  </nav>
+
+
+
+
+<!-- seccion card -->
+<section id="imagen_del_arbol">
+    
+<center>
+<div class="container m-5" >
+    <div class="row">
+        <div class="col-6" id="card_ghiblin">
+
+        </div>
+        <div class="col-6">
+            <img class="amigos"src="./assets/img/page1-img04.webp" alt="">
+        </div>
+    </div>
+</div>
+
+
+</center>
+  
+</section>
+
+
+
+
+<script>
+    //   https://studio-ghibli-films-api.herokuapp.com/api/Arrietty 
+    //   https://studio-ghibli-films-api.herokuapp.com/api/Princess Mononoke
+
+    let form_pelicula = document.getElementById("form_pelicula")
+    form_pelicula.addEventListener("submit", function(event){
+        event.preventDefault()
+       // console.log("dentro de la funcion submit")
+
+       let nombre_pelicula = document.getElementById("select_film").value
+       //console.log(nombre_pelicula)
+
+
+        fetch(`https://studio-ghibli-films-api.herokuapp.com/api/${nombre_pelicula}`)  // promesa funciones
+            
+            .then((response) => response.json())
+            
+            .then( (data) => {
+                console.log(data)
+                let titulo = data.title
+                let imagen = data.poster
+                let sinopsis = data.synopsis
+                let titulo_latino = cambio_titulo(titulo)
+                let anio_estreno = data.release
+                let director = data.director
+                
+               /*  console.log(titulo)
+                console.log(imagen)
+                console.log(sinopsis)
+                console.log(titulo_latino)
+                console.log(anio_estreno)
+                console.log(director) */
+
+                let card_ghiblin = `
+                <div class="card" style="width: 20rem;">
+                    <img src="${imagen}" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h2><strong>${titulo}</strong> </h2>
+                    <p class="card-text">${sinopsis}</p>
+                    <h3><strong>Título en español: </strong> <br>${titulo_latino}</h3>
+                    <h3><strong>Año de estreno: </strong> <br>${anio_estreno}</h3>
+                    <h3><strong>Director: </strong> <br>${director}</h3> 
+                    </div>
+                </div>
+                `
+                let pelicula = data
+                console.log(pelicula)
+
+                /* pelicula.forEach(( element) => {
+                    console.log(element)
+                    card_ghiblin +=`
+                <div class="card" style="width: 25rem;">
+                    <img src="./assets/img/castillo_ghiblin.png" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h2><strong> Titulo </strong> </h2>
+                    <p class="card-text">resumen</p>
+                    <h3><strong>Título original:</strong>  Soy leyenda</h3>
+                    <h3><strong>Año de estreno:</strong>  2023</h3>
+                    <h3><strong>Director:</strong> Fabiola San Cristobal</h3> 
+                    </div>
+                </div>
+                ` */
+                   document.getElementById("card_ghiblin").innerHTML = card_ghiblin
+                
+            })
+            
+         
+                
+                
+                
+                function cambio_titulo (action) {
+                    switch (action) {
+                        case "Arrietty": 
+                            return "Arrietty y el mundo de los diminutos"
+                            break;
+                        case "Castle in the sky": 
+                            return "Castillo en el cielo"
+                            break;
+                        case "Earwig and the Witch": 
+                            return "Tijereta y la bruja"
+                            break;
+                        case "From Up on Poppy Hill": 
+                            return "La colina de las amapolas"
+                            break;
+                        case "Grave of the Fireflies": 
+                            return "La tumba de las luciérnagas"
+                            break;
+                        case "How Do You Live?": 
+                            return "¿Como vives?"
+                            break;
+                        case "Howl's Moving Castle": 
+                            return "El castillo ambulante"
+                            break;
+                        case "Kiki's Delivery Service": 
+                            return "Servicio de entrega de Kiki"
+                            break;
+                        case "My Neighbor Totoro": 
+                            return "Mi vecino Totoro"
+                            break;
+                        case "My Neighbors the Yamadas": 
+                            return "Mis vecinos los Yamada"
+                            break;
+                        case "Ocean Waves": 
+                            return "Puedo escuchar el mar"
+                            break;
+                        case "Only Yesterday": 
+                            return "Recuerdos del ayer "
+                            break;
+                        case "Pom Poko": 
+                            return "Pompoko"
+                            break;
+                        case "Ponyo": 
+                            return "Ponyo"
+                            break;
+                        case "Porco Rosso": 
+                            return "Porco Rosso"
+                            break;
+                        case "Princess Mononoke": 
+                            return "La princesa Mononoke"
+                            break;
+                        case "Spirited Away": 
+                            return "Hecho desaparecer"
+                            break;
+                        case "Tales from Earthsea": 
+                            return "Cuentos de Terramar"
+                            break;
+                        case "The Cat Returns": 
+                            return "El regreso del gato"
+                            break;
+                        case "The Tale of the Princess Kaguya": 
+                            return "El cuento de la princesa Kaguya"
+                            break;
+                        case "The Wind Rises": 
+                            return "El viento se levanta"
+                            break;
+                        case "When Marnie Was There": 
+                            return "El recuerdo de Marnie"
+                            break;
+                        case "Whisper of the Heart": 
+                            return "Susurros del corazón"
+                            break;
+                    }
+                }
+            })
+</script>
+
+
+<!-- script -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+   integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" 
+   crossorigin="anonymous"></script>
+  
+
+<footer id="footer">
+
+</footer>
+    
+</body>
+</html>

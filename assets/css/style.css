@@ -1,0 +1,25 @@
+body{
+   background-color: azure;
+    font-family: 'Times New Roman', Times, serif;
+}
+
+.amigos{
+    
+    float: right;
+}
+
+
+#fotito{
+
+    background-color: black;
+
+}
+
+#card{
+   
+   padding-top: 5%;
+}
+
+#footer{
+    background-color: black;
+}
