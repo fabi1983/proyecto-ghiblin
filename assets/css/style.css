@@ -1,25 +1,52 @@
 body{
    background-color: azure;
-    font-family: 'Times New Roman', Times, serif;
+   font-family: 'Times New Roman', Times, serif;
 }
 
-.amigos{
-    
-    float: right;
+
+#imagen{
+    background-image: url(../img/page1-img04.webp);
+    background-repeat: no-repeat;
+    background-position: left;
+    margin-left: 50%;
+    height:600px;
+    width: 700px;
 }
 
+#imagen{
+    position: absolute;
+}
 
 #fotito{
-
     background-color: black;
-
 }
 
-#card{
-   
+/* #card{
+  
    padding-top: 5%;
+} */
+
+.card_posicion{
+   
+   height: 90vh;
 }
+.card-body{
+     background-color: white;
+     
+    
+}
+
 
 #footer{
     background-color: black;
+    padding: 20px;
+    color: azure;
+    text-align: center;
+    position:relative;
+    bottom: 0;
+    width: 100%;
+}
+
+#footer{
+    margin-top: 100vh;
 }
